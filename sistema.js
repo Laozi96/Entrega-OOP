@@ -206,6 +206,14 @@ class Sistema {
         const email = readlineSync.question("E-mail: ");
         const senha = readlineSync.question("Senha: ");
 
+        const funcionario_existente = this.funcionarios.find(user => user.email === email); 
+        const cliente_existente = this.clientes.find(user => user.email === email);
+
+        if (funcionario_existente || cliente_existente){
+            return console.log("Sistema já possui usuário cadastrado com este email")
+        }
+
+
         const novoCliente = new Cliente(IDCliente, dataNascimento, nome,  cpf, email, senha);
         this.clientes.push(novoCliente);
         console.log("Cliente cadastrado com sucesso");
@@ -217,6 +225,14 @@ class Sistema {
         const cpf = readlineSync.question("Insira seu CPF: ");
         const email = readlineSync.question("E-mail: ");
         const senha = readlineSync.question("Senha: ");
+
+        const funcionario_existente = this.funcionarios.find(user => user.email === email); 
+        const cliente_existente = this.clientes.find(user => user.email === email);
+
+        if (funcionario_existente || cliente_existente){
+            return console.log("Sistema já possui usuário cadastrado com este email")
+        }
+
         
         const novoFuncionario = new Funcionario(IDFuncionario, nome, cpf, email, senha);
         this.funcionarios.push(novoFuncionario);
