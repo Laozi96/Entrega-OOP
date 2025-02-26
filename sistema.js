@@ -106,7 +106,7 @@ class Sistema {
         console.log(funcionario)
     }
 
-    // Menu com opções dedicadas aos funcionários
+    // Menu com opções dedicadas ao usuario funcionário
 
     menuFuncionario(funcionario) {
         let opcoesFuncionario;
@@ -209,6 +209,8 @@ class Sistema {
         const funcionario_existente = this.funcionarios.find(user => user.email === email); 
         const cliente_existente = this.clientes.find(user => user.email === email);
 
+//condicional impede que duas contas em categorias diferentes sejam criadas usando o mesmo endereço de e-mail
+
         if (funcionario_existente || cliente_existente){
             return console.log("\nEste endereço de e-mail já está sendo utilizado. Deseja cadastrar outro?")
         }
@@ -230,6 +232,8 @@ class Sistema {
         const funcionario_existente = this.funcionarios.find(user => user.email === email); 
         const cliente_existente = this.clientes.find(user => user.email === email);
 
+//condicional impede que duas contas em categorias diferentes sejam criadas usando o mesmo endereço de e-mail
+
         if (funcionario_existente || cliente_existente){
             return console.log("\nEste endereço de e-mail já está sendo utilizado. Deseja cadastrar outro?")
         }
@@ -250,6 +254,6 @@ class Sistema {
     }
 }
 
-// Start the system when the page loads
+// Iniciar sistema
 const sistema = new Sistema();
 sistema.iniciar();
