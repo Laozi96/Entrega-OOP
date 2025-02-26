@@ -8,7 +8,7 @@ import Funcionario from "./funcionarios.js";
 import Quarto from "./quartos.js";
 import Reserva from "./reservas.js";
 
-//A classe sistema define a classe principal que utilizará das outras classes
+//A classe sistema é a classe principal. Esta utilizará das outras como ferramentas.
 
 class Sistema {
     constructor() {
@@ -26,8 +26,8 @@ class Sistema {
         this.menu();
     }
 
-//Menu principal onde são dadas as funções iniciais são dispostas.
-// O usuário seleciona a função através dos números que ordenam a lista de acordo com sua necessidade.
+//Menu principal dispõe as opções iniciais.
+// O usuário seleciona a opção através do número correspondente à ação que deseja executar.
 
     menu() {
         let opcao;
@@ -40,13 +40,13 @@ class Sistema {
             } else if (opcao === "3") {
                 this.cadastrarFuncionario();
             } else if (opcao !=="0"){
-                console.log("Opcao invalida");
+                console.log("\nOpcao invalida");
             }
         } while (opcao !== "0");
-        console.log("Saindo...");
+        console.log("\nSaindo...");
     }
 
-    // Menu exclusivon a usuarios Clientes
+    // Menu com opções dedicadas ao usuário cliente
 
     menuCliente(client) {
         let opcoesCliente;
@@ -63,7 +63,7 @@ class Sistema {
             } else if (opcoesCliente == "5"){
                 this.verReservas(client);
             } else if (opcoesCliente !=="0"){
-                console.log("Opcao invalida");
+                console.log("\nOpcao invalida");
             }
         } while (opcoesCliente !== "0");
         console.log("Saindo..."); 
@@ -79,17 +79,17 @@ class Sistema {
 
         const novaReserva = new Reserva(IDUnico, IDCliente, status,  checkIn, checkOut);
         this.reservas.push(novaReserva);
-        console.log("Reserva cadastrada com sucesso");
+        console.log("\nReserva cadastrada com sucesso");
     }
 
     cancelarReserva(client){
         let lista_reservas = this.reservas.find(r => r.IDCliente === client.IDCliente);
         console.log(lista_reservas);
-        const id = parseInt(readlineSync.question("Qual reserva cancelar: "));
+        const id = parseInt(readlineSync.question("Qual reserva deseja cancelar: "));
 
         let reserva_cancelada = lista_reservas.find(x => x.IDUnico === id);
         reserva_cancelada.status = "Cancelada";
-        console.log("Sua reserva foi cancelada com sucesso")
+        console.log("\nSua reserva foi cancelada com sucesso")
     
     }
 
@@ -106,7 +106,7 @@ class Sistema {
         console.log(funcionario)
     }
 
-    // Menu exclusivon a usuarios Funcionarios
+    // Menu com opções dedicadas aos funcionários
 
     menuFuncionario(funcionario) {
         let opcoesFuncionario;
@@ -125,10 +125,10 @@ class Sistema {
             } else if (opcoesFuncionario == "6"){
                 this.adicionarQuarto();
             } else if (opcoesFuncionario !=="0"){
-                console.log("Opcao invalida");
+                console.log("\nOpcao invalida");
             }
         } while (opcoesFuncionario !== "0");
-        console.log("Saindo..."); 
+        console.log("\nSaindo..."); 
         this.menu();
     }
 
@@ -143,13 +143,13 @@ class Sistema {
     mudarStatus(){
         console.log(this.reservas);
         if (this.reservas.length === 0) {
-            return console.log("Nao ha reservas cadastradas")
+            return console.log("\nNao ha reservas cadastradas")
         }
-        const id = parseInt(readlineSync.question("Insira o ID da reserva que deseja modificar: "));
+        const id = parseInt(readlineSync.question("\nInsira o ID da reserva que deseja modificar: "));
         let res = this.reservas.find(r => r.IDUnico === id);
         let opcao;
         do{
-            opcao = readlineSync.question("\n--- Atribuir novo status a reserva ---\n1. Pendente\n2. Adiada\n3. Efetivada \n4. Cancelada \n0. Voltar ao menu anterior ");
+            opcao = readlineSync.question("\n--- Atribuir novo status à reserva ---\n1. Pendente\n2. Adiada\n3. Efetivada \n4. Cancelada \n0. Voltar ao menu anterior ");
             if (opcao == 1){
                 res.status = "Pendente";
             } else if (opcao == 2){
@@ -170,13 +170,13 @@ class Sistema {
 
         let funcionario = this.funcionarios.find(user => user.email === email && user.senha === senha);
         if (funcionario) {
-            console.log("\nOla funcionario, seja bem vindo.");
+            console.log("\nOlá funcionário, seja bem vindo.");
             this.menuFuncionario(funcionario);
         }
 
         let client = this.clientes.find(user => user.email === email && user.senha === senha);
         if (client) {
-            console.log("\nOla cliente, seja bem vindo.");
+            console.log("\nOlá cliente, seja bem vindo.");
             this.menuCliente(client);
         }
 
@@ -210,16 +210,17 @@ class Sistema {
         const cliente_existente = this.clientes.find(user => user.email === email);
 
         if (funcionario_existente || cliente_existente){
-            return console.log("Sistema já possui usuário cadastrado com este email")
+            return console.log("\nEste endereço de e-mail já está sendo utilizado. Deseja cadastrar outro?")
         }
 
 
         const novoCliente = new Cliente(IDCliente, dataNascimento, nome,  cpf, email, senha);
         this.clientes.push(novoCliente);
-        console.log("Cliente cadastrado com sucesso");
+        console.log("\nCliente cadastrado com sucesso");
     }
+
     cadastrarFuncionario(){
-        console.log("\n--- Cadastro de funcionario ---");
+        console.log("\n--- Cadastro de funcionário ---");
         let IDFuncionario = this.funcionarios.length + 1;
         const nome = readlineSync.question("Seu nome: ");
         const cpf = readlineSync.question("Insira seu CPF: ");
@@ -230,13 +231,13 @@ class Sistema {
         const cliente_existente = this.clientes.find(user => user.email === email);
 
         if (funcionario_existente || cliente_existente){
-            return console.log("Sistema já possui usuário cadastrado com este email")
+            return console.log("\nEste endereço de e-mail já está sendo utilizado. Deseja cadastrar outro?")
         }
 
         
         const novoFuncionario = new Funcionario(IDFuncionario, nome, cpf, email, senha);
         this.funcionarios.push(novoFuncionario);
-        console.log("Funcionario cadastrado com sucesso");
+        console.log("\nFuncionário cadastrado com sucesso");
 
     }
     gerenciamentoDeQuartos(){
